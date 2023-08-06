@@ -14,8 +14,6 @@ const shuffleArray = array => {
   return array;
 }
 
-
-
 const Utils = {qs, shuffleArray};
 
 export default Utils;
