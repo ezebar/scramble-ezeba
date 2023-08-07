@@ -11,8 +11,6 @@ import Utils from "./utils";
 
 
 //1. Rename variables & simplify
-
-
 const scoresDOM = Utils.qs('.score');
 const btnTryDOM = Utils.qs('.btn-try');
 const btnNextDOM = Utils.qs('.btn-next');
@@ -37,7 +35,7 @@ wordsDOM.textContent = Utils.shuffleArray(letters).join("");
 
 btnTryDOM.addEventListener('click', () => {
   const inputWord = inputWordDOM.value;
-  const isAnagram = function(word, inputWord) {
+  const isAnagram = (word, inputWord) => {
  if (index, scoreIndex != words.length) {
    if (word.toLowerCase() === inputWord.toLowerCase()) {
     scoresDOM.textContent = `${scoreIndex +1} / ${words.length}`;
@@ -72,9 +70,8 @@ const initApp = () => {
   inputWordDOM.value = '';
   viewScramble();
   }
-btnResetDOM.addEventListener('click', () => {
-  initApp();
-});
-
+btnResetDOM.addEventListener('click', initApp);
 initApp();
+
+
 
