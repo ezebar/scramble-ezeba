@@ -1,5 +1,5 @@
 {
-  "name": "vite-project",
+  "name": "scramble-zustand-eze",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -10,5 +10,8 @@
   },
   "devDependencies": {
     "vite": "^4.4.5"
+  },
+  "dependencies": {
+    "zustand": "^4.4.1"
   }
 }
