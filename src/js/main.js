@@ -15,9 +15,9 @@ const initApp = () => {
     const { words, index } = Store.getState();
     const { id, word } = words[index];
     // console.log({ id, word });
+    const noOfCorrectAnswers = Utils.getNoOfCorrectAnswers();
+  if (noOfCorrectAnswers != words.length) {
     const inputWord = inputWordDOM.value;
-    // console.log(words[index].noOfAttempts)
-  //  if (index != words.length) {
     if (Utils.isAnagram(word, inputWord)) {
       Store.setState(
         (state) => ({
@@ -28,23 +28,19 @@ const initApp = () => {
           ),
         }),
         true
-      );
-      
+      );  
       const hasCorrectAnswer = Utils.getHasCorrectAnswerByWordIndex();
       const noOfCorrectAnswers = Utils.getNoOfCorrectAnswers();
       const AttemptsAnswers = Utils.getnoOfAttemptsbyIndex();
       const noOfAttemptsAnswers = Utils.getNoOfAttempts();
-
       scoreDOM.textContent = `${noOfCorrectAnswers} / ${words.length}`;
       inputWordDOM.value = "";
       resultDOM.textContent = `🎉 Correct 👏👏👏  ${hasCorrectAnswer} | Attempts: ${noOfAttemptsAnswers}`;
       // scoresDOM.textContent = `${scoreIndex + 1} / ${words.length}`;
-      
-
-      if (index < words.length - 1) {
-        Store.setState((state) => ({ ...state, index: state.index + 1 }), true);
-        ViewScramble.render();
-      }
+        if (index < words.length - 1) {
+          Store.setState((state) => ({ ...state, index: state.index + 1 }), true);
+          ViewScramble.render();
+        }
     } else {
       Store.setState((state) => ({
         ...state,
@@ -52,16 +48,16 @@ const initApp = () => {
           word.id === id ? { ...word, hasCorrectAnswer: false, noOfAttempts: word.noOfAttempts +1} : word 
         ),
       }));
-      const hasCorrectAnswer = Utils.getHasCorrectAnswerByWordIndex();
-      const noOfCorrectAnswers = Utils.getNoOfCorrectAnswers();
-      const AttemptsAnswers = Utils.getnoOfAttemptsbyIndex();
-      const noOfAttemptsAnswers = Utils.getNoOfAttempts();
+    const hasCorrectAnswer = Utils.getHasCorrectAnswerByWordIndex();
+    const noOfCorrectAnswers = Utils.getNoOfCorrectAnswers();
+    const AttemptsAnswers = Utils.getnoOfAttemptsbyIndex();
+    const noOfAttemptsAnswers = Utils.getNoOfAttempts();
       scoreDOM.textContent = `${noOfCorrectAnswers} / ${words.length}`;
       inputWordDOM.value = "";
       console.log(noOfAttemptsAnswers);
       resultDOM.textContent = `Incorrect, try again❗️${hasCorrectAnswer} | Attempts: ${noOfAttemptsAnswers}`;
-    }
-  // }
+  }
+}
   });
 
   btnResetDOM.addEventListener("click", () => {
@@ -73,8 +69,8 @@ const initApp = () => {
         // scoreIndex: state.scoreIndex * 0,
     })
         ,true);
-      resultDOM.textContent = '';
-      ViewScramble.render();
+        resultDOM.textContent = '';
+        ViewScramble.render();
     });
     ViewScramble.render();
 };

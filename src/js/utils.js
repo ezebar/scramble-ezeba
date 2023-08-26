@@ -24,6 +24,7 @@ const getHasCorrectAnswerByWordIndex = () => {
 const getNoOfCorrectAnswers = () => {
   const { words } = Store.getState();
   const noOfCorrectAnswer = words.filter(
+    // ONLY filter as = word.hasCorrectAnswer === true
     (word) => word.hasCorrectAnswer).length;
   return noOfCorrectAnswer;
 };
@@ -34,7 +35,7 @@ const getnoOfAttemptsbyIndex = () => {
   return noOfAttempts;
 }
 
-//sume each word.noOfAttemps value 
+//sum each word.noOfAttemps value 
 const getNoOfAttempts = () => {
   const {words} = Store.getState();
   const noOfAttemptsAnswer = words.map((word) => word.noOfAttempts)
