@@ -12,37 +12,41 @@ const shuffleArray = (array) => {
   return array;
 };
 
-const isAnagram = (word, inputWord) => 
-word.toLowerCase() === inputWord.toLowerCase();
+const isAnagram = (word, inputWord) =>
+  word.toLowerCase() === inputWord.toLowerCase();
 
 const getHasCorrectAnswerByWordIndex = () => {
-  const { words, index } = Store.getState();
+  // Store.getState()
+  const { words, index } = Store.getWords();
   const { hasCorrectAnswer } = words[index];
   return hasCorrectAnswer;
 };
 
 const getNoOfCorrectAnswers = () => {
-  const { words } = Store.getState();
-  const noOfCorrectAnswer = words.filter(
-    // ONLY filter as = word.hasCorrectAnswer === true
-    (word) => word.hasCorrectAnswer).length;
-  return noOfCorrectAnswer;
+  const { words } = Store.getWords();
+  return words.filter((word) => word.hasCorrectAnswer).length;
 };
 
 const getnoOfAttemptsbyIndex = () => {
-  const {words, index} = Store.getState();
-  const {noOfAttempts} = words[index];
+  const { words, index } = Store.getWords();
+  const { noOfAttempts } = words[index];
   return noOfAttempts;
-}
+};
 
-//sum each word.noOfAttemps value 
+//sum each word.noOfAttemps value
 const getNoOfAttempts = () => {
-  const {words} = Store.getState();
-  const noOfAttemptsAnswer = words.map((word) => word.noOfAttempts)
-  .reduce((accumulator, current)=> accumulator + current, 0);
-  return noOfAttemptsAnswer;
-}
+  const { words } = Store.getWords();
+  return words.map((word) => word.noOfAttempts).reduce((acc, n) => acc + n, 0);
+};
 
-const Utils = {qs, shuffleArray, isAnagram, getHasCorrectAnswerByWordIndex, getNoOfCorrectAnswers, getnoOfAttemptsbyIndex, getNoOfAttempts};
+const Utils = {
+  qs,
+  shuffleArray,
+  isAnagram,
+  getHasCorrectAnswerByWordIndex,
+  getNoOfCorrectAnswers,
+  getnoOfAttemptsbyIndex,
+  getNoOfAttempts,
+};
 
 export default Utils;
