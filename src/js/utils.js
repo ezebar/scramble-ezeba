@@ -17,25 +17,25 @@ const isAnagram = (word, inputWord) =>
 
 const getHasCorrectAnswerByWordIndex = () => {
   // Store.getState()
-  const { words, index } = Store.getWords();
+  const { words, index } = Store.getState();
   const { hasCorrectAnswer } = words[index];
   return hasCorrectAnswer;
 };
 
 const getNoOfCorrectAnswers = () => {
-  const { words } = Store.getWords();
+  const { words } = Store.getState();
   return words.filter((word) => word.hasCorrectAnswer).length;
 };
 
 const getnoOfAttemptsbyIndex = () => {
-  const { words, index } = Store.getWords();
+  const { words, index } = Store.getState();
   const { noOfAttempts } = words[index];
   return noOfAttempts;
 };
 
 //sum each word.noOfAttemps value
 const getNoOfAttempts = () => {
-  const { words } = Store.getWords();
+  const { words } = Store.getState();
   return words.map((word) => word.noOfAttempts).reduce((acc, n) => acc + n, 0);
 };
 

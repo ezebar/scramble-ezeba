@@ -4,7 +4,6 @@
   box-sizing: border-box;
 }
 
-
 body {
   font-family: sans-serif;
 }
@@ -17,7 +16,3 @@ body {
   place-items: left;
   gap: 10px;
 }
-
-
-
-
