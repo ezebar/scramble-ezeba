@@ -47,7 +47,6 @@ const setHasCorrectAnswer = (id) =>
   setState(
     (state) => ({
       ...state,
-      // scoreIndex: state.scoreIndex + 1
       words: state.words.map((word) =>
         word.id === id ? { ...word, hasCorrectAnswer: true } : word
       ),
@@ -78,6 +77,7 @@ const setHasCorrectAnswerFalseAndIncrNoOfAttemps = (id) => {
     true
   );
 };
+
 // const {getState, setState} = store; ==> without descontructing and below descontructing
 const { getState, setState } = createStore(() => INIT_STATE);
 

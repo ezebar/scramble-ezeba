@@ -27,14 +27,14 @@ const getNoOfCorrectAnswers = () => {
   return words.filter((word) => word.hasCorrectAnswer).length;
 };
 
-const getnoOfAttemptsbyIndex = () => {
-  const { words, index } = Store.getState();
-  const { noOfAttempts } = words[index];
-  return noOfAttempts;
-};
+// TODO: CHECK IF FUNCTION IS REALLY USE. -> Funtion is not in use.
+// const getnoOfAttemptsbyIndex = () => {
+//   const { words, index } = Store.getState();
+//   const { noOfAttempts } = words[index];
+//   return noOfAttempts;
+// };
 
-//sum each word.noOfAttemps value
-const getNoOfAttempts = () => {
+const sumAttempts = () => {
   const { words } = Store.getState();
   return words.map((word) => word.noOfAttempts).reduce((acc, n) => acc + n, 0);
 };
@@ -45,8 +45,8 @@ const Utils = {
   isAnagram,
   getHasCorrectAnswerByWordIndex,
   getNoOfCorrectAnswers,
-  getnoOfAttemptsbyIndex,
-  getNoOfAttempts,
+  // getnoOfAttemptsbyIndex,
+  sumAttempts,
 };
 
 export default Utils;
