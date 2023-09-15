@@ -43,7 +43,7 @@ const INIT_STATE = {
 const getWords = () => getState().words;
 const getIndex = () => getState().index;
 
-const setHasCorrectAnswer = (id) =>
+const setAnswerToCorrect = (id) =>
   setState(
     (state) => ({
       ...state,
@@ -60,7 +60,7 @@ const setIndex = () => {
 
 const reset = () => setState((state) => INIT_STATE, true);
 
-const setHasCorrectAnswerFalseAndIncrNoOfAttemps = (id) => {
+const setAnswerToWrong = (id) => {
   setState(
     (state) => ({
       ...state,
@@ -86,8 +86,8 @@ const Store = {
   setState,
   getWords,
   getIndex,
-  setHasCorrectAnswer,
-  setHasCorrectAnswerFalseAndIncrNoOfAttemps,
+  setAnswerToCorrect,
+  setAnswerToWrong,
   setIndex,
   INIT_STATE,
   reset,

@@ -15,39 +15,31 @@ const initApp = () => {
   btnTryDOM.addEventListener("click", () => {
     const words = Store.getWords();
     const index = Store.getIndex();
-    // TODO: function to check if last element in array hasCorrectAnswer === true. Tried reverse() method too but it change everytime click btnTry
-    try {
-      const { id, word } = words.find((word) =>
-        [false, null].includes(word.hasCorrectAnswer)
-      );
-      const noOfCorrectAnswers = Utils.getNoOfCorrectAnswers();
-      if (noOfCorrectAnswers != words.length) {
-        const inputWord = inputWordDOM.value;
-        hintWordDOM.textContent = "";
-        if (Utils.isAnagram(word, inputWord)) {
-          Store.setHasCorrectAnswer(id);
-          const hasCorrectAnswer = Utils.getHasCorrectAnswerByWordIndex();
-          const noOfCorrectAnswers = Utils.getNoOfCorrectAnswers();
-          const sumAttempts = Utils.sumAttempts();
-          scoreDOM.textContent = `${noOfCorrectAnswers} / ${words.length}`;
-          inputWordDOM.value = "";
-          resultDOM.textContent = `🎉 Correct 👏👏👏  ${hasCorrectAnswer} | Attempts: ${sumAttempts}`;
-          if (index < words.length - 1) {
-            Store.setIndex();
-            ViewScramble.render();
-          }
-        } else {
-          Store.setHasCorrectAnswerFalseAndIncrNoOfAttemps(id);
-          const hasCorrectAnswer = Utils.getHasCorrectAnswerByWordIndex();
-          const noOfCorrectAnswers = Utils.getNoOfCorrectAnswers();
-          const sumAttempts = Utils.sumAttempts();
-          scoreDOM.textContent = `${noOfCorrectAnswers} / ${words.length}`;
-          inputWordDOM.value = "";
-          resultDOM.textContent = `Incorrect, try again❗️${hasCorrectAnswer} | Attempts: ${sumAttempts}`;
-        }
+    const { id, word } = words.find((word) =>
+      [false, null].includes(word.hasCorrectAnswer)
+    );
+    const noOfCorrectAnswers = Utils.getNoOfCorrectAnswers();
+    if (noOfCorrectAnswers != words.length) {
+      const inputWord = inputWordDOM.value;
+      hintWordDOM.textContent = "";
+      if (Utils.isAnagram(word, inputWord)) {
+        Store.setAnswerToCorrect(id);
+        const hasCorrectAnswer = Utils.getHasCorrectAnswerByWordIndex();
+        const noOfCorrectAnswers = Utils.getNoOfCorrectAnswers();
+        const sumAttempts = Utils.sumAttempts();
+        scoreDOM.textContent = `${noOfCorrectAnswers} / ${words.length}`;
+        inputWordDOM.value = "";
+        resultDOM.textContent = `🎉 Correct 👏👏👏  ${hasCorrectAnswer} | Attempts: ${sumAttempts}`;
+        ViewScramble.render();
+      } else {
+        Store.setAnswerToWrong(id);
+        const hasCorrectAnswer = Utils.getHasCorrectAnswerByWordIndex();
+        const noOfCorrectAnswers = Utils.getNoOfCorrectAnswers();
+        const sumAttempts = Utils.sumAttempts();
+        scoreDOM.textContent = `${noOfCorrectAnswers} / ${words.length}`;
+        inputWordDOM.value = "";
+        resultDOM.textContent = `Incorrect, try again❗️${hasCorrectAnswer} | Attempts: ${sumAttempts}`;
       }
-    } catch (e) {
-      throw new Error("🎉 CONGRATULATIONS YOU FINISH THE GAME!");
     }
   });
 
@@ -63,7 +55,7 @@ const initApp = () => {
     const index = Store.getIndex();
     const { id, word, hint } = words[index];
     hintWordDOM.textContent = `Hint: "${hint}"`;
-    Store.setHasCorrectAnswerFalseAndIncrNoOfAttemps(id);
+    Store.setAnswerToWrong(id);
     const sumAttempts = Utils.sumAttempts();
     inputWordDOM.value = "";
     resultDOM.textContent = `Attempts: ${sumAttempts}`;
