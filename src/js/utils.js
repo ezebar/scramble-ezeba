@@ -1,4 +1,5 @@
 import Store from "./store";
+import * as R from "ramda";
 // helpers
 const qs = (s) => document.querySelector(s);
 
@@ -16,28 +17,33 @@ const isAnagram = (word, inputWord) =>
   word.toLowerCase() === inputWord.toLowerCase();
 
 const getHasCorrectAnswerByWordIndex = () => {
-  // Store.getState()
   const { words, index } = Store.getState();
   const { hasCorrectAnswer } = words[index];
   return hasCorrectAnswer;
 };
 
-const getNoOfCorrectAnswers = () => {
-  const { words } = Store.getState();
-  return words.filter((word) => word.hasCorrectAnswer).length;
-};
+const getHasCorrectAnswer = () =>
+  Store.getWords().find((word) =>
+    R.includes(word.hasCorrectAnswer, [false, null])
+  );
 
-// TODO: CHECK IF FUNCTION IS REALLY USE. -> Funtion is not in use.
-// const getnoOfAttemptsbyIndex = () => {
-//   const { words, index } = Store.getState();
-//   const { noOfAttempts } = words[index];
-//   return noOfAttempts;
-// };
+// TODO: function getCurrentWord to fix the hint function. It's same function as getHasCorrectAnswer but used only in btnHintDOM eventListener. So I'm repeating the function, something we shouldn't do.
+//R.find(R.propEq(2, 'a'))(xs); -> pending to try.
+//R.includes(3, [1, 2, 3]); -> DONE
+const getCurrentWord = () =>
+  Store.getWords().find((word) =>
+    R.includes(word.hasCorrectAnswer, [false, null])
+  );
 
-const sumAttempts = () => {
-  const { words } = Store.getState();
-  return words.map((word) => word.noOfAttempts).reduce((acc, n) => acc + n, 0);
-};
+const getNoOfWords = () => Store.getWords().length;
+
+const getNoOfCorrectAnswers = () =>
+  Store.getWords().filter(R.prop("hasCorrectAnswer")).length;
+
+const sumAttempts = () =>
+  Store.getWords().map(R.prop("noOfAttempts")).reduce(R.add, 0);
+
+const sumPoints = () => Store.getWords().map(R.prop("points")).reduce(R.add, 0);
 
 const Utils = {
   qs,
@@ -45,8 +51,11 @@ const Utils = {
   isAnagram,
   getHasCorrectAnswerByWordIndex,
   getNoOfCorrectAnswers,
-  // getnoOfAttemptsbyIndex,
   sumAttempts,
+  sumPoints,
+  getHasCorrectAnswer,
+  getNoOfWords,
+  getCurrentWord,
 };
 
 export default Utils;

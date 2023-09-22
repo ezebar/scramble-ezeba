@@ -7,6 +7,7 @@ const INIT_STATE = {
       hasCorrectAnswer: null,
       noOfAttempts: 0,
       hint: "Completed or finished; no more actions needed.",
+      points: 0,
     },
     {
       id: 2,
@@ -14,6 +15,7 @@ const INIT_STATE = {
       hasCorrectAnswer: null,
       noOfAttempts: 0,
       hint: "Used to express obligation, expectation, or advice.",
+      points: 0,
     },
     {
       id: 3,
@@ -21,6 +23,7 @@ const INIT_STATE = {
       hasCorrectAnswer: null,
       noOfAttempts: 0,
       hint: "In that place or location; opposite of 'here.'",
+      points: 0,
     },
     {
       id: 4,
@@ -28,6 +31,7 @@ const INIT_STATE = {
       hasCorrectAnswer: null,
       noOfAttempts: 0,
       hint: "Prepared or willing to do something; fully prepared.",
+      points: 0,
     },
     {
       id: 5,
@@ -35,6 +39,7 @@ const INIT_STATE = {
       hasCorrectAnswer: null,
       noOfAttempts: 0,
       hint: "Having a great length or duration; not short.",
+      points: 0,
     },
   ],
   index: 0,
@@ -48,7 +53,9 @@ const setAnswerToCorrect = (id) =>
     (state) => ({
       ...state,
       words: state.words.map((word) =>
-        word.id === id ? { ...word, hasCorrectAnswer: true } : word
+        word.id === id
+          ? { ...word, hasCorrectAnswer: true, points: word.points + 10 }
+          : word
       ),
     }),
     true
@@ -70,6 +77,7 @@ const setAnswerToWrong = (id) => {
               ...word,
               hasCorrectAnswer: false,
               noOfAttempts: word.noOfAttempts + 1,
+              points: word.points + 0,
             }
           : word
       ),
