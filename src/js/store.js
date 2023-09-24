@@ -42,11 +42,10 @@ const INIT_STATE = {
       points: 0,
     },
   ],
-  index: 0,
 };
 
+// TODO: take index from app. -> DONE
 const getWords = () => getState().words;
-const getIndex = () => getState().index;
 
 const setAnswerToCorrect = (id) =>
   setState(
@@ -60,10 +59,6 @@ const setAnswerToCorrect = (id) =>
     }),
     true
   );
-
-const setIndex = () => {
-  setState((state) => ({ ...state, index: state.index + 1 }), true);
-};
 
 const reset = () => setState((state) => INIT_STATE, true);
 
@@ -93,10 +88,8 @@ const Store = {
   getState,
   setState,
   getWords,
-  getIndex,
   setAnswerToCorrect,
   setAnswerToWrong,
-  setIndex,
   INIT_STATE,
   reset,
 };

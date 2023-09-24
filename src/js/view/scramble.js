@@ -13,7 +13,7 @@ const render = () => {
     const word = Utils.getHasCorrectAnswer().word.split("");
     wordsDOM.textContent = Utils.shuffleArray(word).join("");
   } catch (e) {
-    //TODO: create message when user answered corrected all words like: you won congrats ! or similar
+    //TODO: create message when user answered corrected all words. -> DONE
     wordsDOM.textContent = `🏆 Round finished!`;
     console.error(e);
   } finally {

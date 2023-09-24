@@ -13,13 +13,13 @@ const hintWordDOM = Utils.qs(".hint-word");
 
 const initApp = () => {
   btnTryDOM.addEventListener("click", () => {
-    const { id, word } = Utils.getHasCorrectAnswer();
+    const { id, word } = Utils.getCurrentWord();
     const noOfCorrectAnswers = Utils.getNoOfCorrectAnswers();
     const inputWord = inputWordDOM.value;
     hintWordDOM.textContent = "";
     if (Utils.isAnagram(word, inputWord)) {
       Store.setAnswerToCorrect(id);
-      const hasCorrectAnswer = Utils.getHasCorrectAnswerByWordIndex();
+      const hasCorrectAnswer = Utils.getHasCorrectAnswerBoolean();
       const noOfCorrectAnswers = Utils.getNoOfCorrectAnswers();
       const sumAttempts = Utils.sumAttempts();
       inputWordDOM.value = "";
@@ -27,7 +27,7 @@ const initApp = () => {
       ViewScramble.render();
     } else {
       Store.setAnswerToWrong(id);
-      const hasCorrectAnswer = Utils.getHasCorrectAnswerByWordIndex();
+      const hasCorrectAnswer = Utils.getHasCorrectAnswerBoolean();
       const noOfCorrectAnswers = Utils.getNoOfCorrectAnswers();
       const sumAttempts = Utils.sumAttempts();
       inputWordDOM.value = "";

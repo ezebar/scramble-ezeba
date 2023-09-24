@@ -16,12 +16,6 @@ const shuffleArray = (array) => {
 const isAnagram = (word, inputWord) =>
   word.toLowerCase() === inputWord.toLowerCase();
 
-const getHasCorrectAnswerByWordIndex = () => {
-  const { words, index } = Store.getState();
-  const { hasCorrectAnswer } = words[index];
-  return hasCorrectAnswer;
-};
-
 const getHasCorrectAnswer = () =>
   Store.getWords().find((word) =>
     R.includes(word.hasCorrectAnswer, [false, null])
@@ -34,6 +28,15 @@ const getCurrentWord = () =>
   Store.getWords().find((word) =>
     R.includes(word.hasCorrectAnswer, [false, null])
   );
+
+//TODO: delete index and make it work as it was. -> DONE
+const getHasCorrectAnswerBoolean = () => {
+  const { hasCorrectAnswer } = Store.getWords()
+    .slice()
+    .reverse()
+    .find((word) => [true, false].includes(word.hasCorrectAnswer));
+  return hasCorrectAnswer;
+};
 
 const getNoOfWords = () => Store.getWords().length;
 
@@ -49,7 +52,7 @@ const Utils = {
   qs,
   shuffleArray,
   isAnagram,
-  getHasCorrectAnswerByWordIndex,
+  getHasCorrectAnswerBoolean,
   getNoOfCorrectAnswers,
   sumAttempts,
   sumPoints,
