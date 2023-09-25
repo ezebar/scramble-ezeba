@@ -1,4 +1,6 @@
 import { createStore } from "zustand/vanilla";
+import * as R from "ramda";
+
 const INIT_STATE = {
   words: [
     {
