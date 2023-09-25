@@ -29,10 +29,10 @@ const getCurrentWord = () =>
     R.includes(word.hasCorrectAnswer, [false, null])
   );
 
-//TODO: delete index and make it work as it was. -> DONE
+//TODO: delete index and make it work. -> DONE
 const getHasCorrectAnswerBoolean = () => {
   const { hasCorrectAnswer } = Store.getWords()
-    .slice()
+    .slice() // returns a shallow copy
     .reverse()
     .find((word) => [true, false].includes(word.hasCorrectAnswer));
   return hasCorrectAnswer;

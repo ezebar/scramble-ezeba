@@ -17,7 +17,7 @@ const render = () => {
     wordsDOM.textContent = `🏆 Round finished!`;
     console.error(e);
   } finally {
-    // TODO: hint change for every word
+    // TODO: hint change for every word -> DONE
     pointsDOM.textContent = `${Utils.sumPoints()}`;
     scoreDOM.textContent = `${Utils.getNoOfCorrectAnswers()} / ${Utils.getNoOfWords()}`;
   }

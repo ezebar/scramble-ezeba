@@ -44,7 +44,6 @@ const initApp = () => {
 
   // TODO: hint change for every word. -> DONE
   btnHintDOM.addEventListener("click", () => {
-    // Desconstructing getCurrentWord() to use id and hint in btnHintDOM. In this case I could use too getHasCorrectAnswer as do the same
     const { id, hint } = Utils.getCurrentWord();
     hintWordDOM.textContent = `Hint: "${hint}"`;
     Store.setAnswerToWrong(id);

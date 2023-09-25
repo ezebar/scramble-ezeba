@@ -53,7 +53,7 @@ const setAnswerToCorrect = (id) =>
       ...state,
       words: state.words.map((word) =>
         word.id === id
-          ? { ...word, hasCorrectAnswer: true, points: word.points + 10 }
+          ? { ...word, hasCorrectAnswer: true, points: R.add(word.points, 10) }
           : word
       ),
     }),
@@ -71,8 +71,8 @@ const setAnswerToWrong = (id) => {
           ? {
               ...word,
               hasCorrectAnswer: false,
-              noOfAttempts: word.noOfAttempts + 1,
-              points: word.points + 0,
+              noOfAttempts: R.add(word.noOfAttempts, 1),
+              points: R.add(word.points, 0),
             }
           : word
       ),
