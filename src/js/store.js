@@ -1,12 +1,11 @@
 import { createStore } from "zustand/vanilla";
 import * as R from "ramda";
-
 const INIT_STATE = {
   words: [
     {
       id: 1,
       word: "done",
-      hasCorrectAnswer: null,
+      isCorrect: null,
       noOfAttempts: 0,
       hint: "Completed or finished; no more actions needed.",
       points: 0,
@@ -14,7 +13,7 @@ const INIT_STATE = {
     {
       id: 2,
       word: "should",
-      hasCorrectAnswer: null,
+      isCorrect: null,
       noOfAttempts: 0,
       hint: "Used to express obligation, expectation, or advice.",
       points: 0,
@@ -22,7 +21,7 @@ const INIT_STATE = {
     {
       id: 3,
       word: "there",
-      hasCorrectAnswer: null,
+      isCorrect: null,
       noOfAttempts: 0,
       hint: "In that place or location; opposite of 'here.'",
       points: 0,
@@ -30,7 +29,7 @@ const INIT_STATE = {
     {
       id: 4,
       word: "ready",
-      hasCorrectAnswer: null,
+      isCorrect: null,
       noOfAttempts: 0,
       hint: "Prepared or willing to do something; fully prepared.",
       points: 0,
@@ -38,7 +37,7 @@ const INIT_STATE = {
     {
       id: 5,
       word: "long",
-      hasCorrectAnswer: null,
+      isCorrect: null,
       noOfAttempts: 0,
       hint: "Having a great length or duration; not short.",
       points: 0,
@@ -46,7 +45,6 @@ const INIT_STATE = {
   ],
 };
 
-// TODO: take index from app. -> DONE
 const getWords = () => getState().words;
 
 const setAnswerToCorrect = (id) =>
@@ -55,14 +53,12 @@ const setAnswerToCorrect = (id) =>
       ...state,
       words: state.words.map((word) =>
         word.id === id
-          ? { ...word, hasCorrectAnswer: true, points: R.add(word.points, 10) }
+          ? { ...word, isCorrect: true, points: R.add(word.points, 10) }
           : word
       ),
     }),
     true
   );
-
-const reset = () => setState((state) => INIT_STATE, true);
 
 const setAnswerToWrong = (id) => {
   setState(
@@ -72,7 +68,7 @@ const setAnswerToWrong = (id) => {
         word.id === id
           ? {
               ...word,
-              hasCorrectAnswer: false,
+              isCorrect: false,
               noOfAttempts: R.add(word.noOfAttempts, 1),
               points: R.add(word.points, 0),
             }
@@ -82,6 +78,8 @@ const setAnswerToWrong = (id) => {
     true
   );
 };
+
+const reset = () => setState((state) => INIT_STATE, true);
 
 // const {getState, setState} = store; ==> without descontructing and below descontructing
 const { getState, setState } = createStore(() => INIT_STATE);

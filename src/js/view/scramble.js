@@ -4,22 +4,23 @@ import Store from "./../store";
 const scoreDOM = Utils.qs(".score");
 const wordsDOM = Utils.qs(".words");
 const pointsDOM = Utils.qs(".points");
-const hintWordDOM = Utils.qs(".hint-word");
+const btnTryDOM = Utils.qs(".btn-try");
+const btnResetDOM = Utils.qs(".btn-reset");
+const btnHintDOM = Utils.qs(".btn-hint");
 
 const render = () => {
-  // try & catch used when we are out of words
   try {
-    //If .find() returns undefined (which means all words have been answered correctly), .word will throw TypeError: Cannot read properties of undefined (reading 'word').
-    const word = Utils.getHasCorrectAnswer().word.split("");
+    const word = Utils.getCurrentWord().word.split("");
     wordsDOM.textContent = Utils.shuffleArray(word).join("");
   } catch (e) {
-    //TODO: create message when user answered corrected all words. -> DONE
     wordsDOM.textContent = `🏆 Round finished!`;
-    console.error(e);
+    btnTryDOM.classList.add("disabled");
+    btnHintDOM.classList.add("disabled");
+    btnResetDOM.classList.remove("btn-hidden");
+    //TODO: add a button to start a new round & disable other buttons like "Try it!" and others. -> DONE
   } finally {
-    // TODO: hint change for every word -> DONE
     pointsDOM.textContent = `${Utils.sumPoints()}`;
-    scoreDOM.textContent = `${Utils.getNoOfCorrectAnswers()} / ${Utils.getNoOfWords()}`;
+    scoreDOM.textContent = `${Utils.sumCorrectAnswers()} / ${Utils.sumWords()}`;
   }
 };
 

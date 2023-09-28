@@ -16,3 +16,7 @@ body {
   place-items: left;
   gap: 10px;
 }
+
+.btn-hidden {
+  visibility: hidden;
+}

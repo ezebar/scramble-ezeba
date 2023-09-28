@@ -16,32 +16,22 @@ const shuffleArray = (array) => {
 const isAnagram = (word, inputWord) =>
   word.toLowerCase() === inputWord.toLowerCase();
 
-const getHasCorrectAnswer = () =>
-  Store.getWords().find((word) =>
-    R.includes(word.hasCorrectAnswer, [false, null])
-  );
-
-// TODO: function getCurrentWord to fix the hint function. It's same function as getHasCorrectAnswer but used only in btnHintDOM eventListener. So I'm repeating the function, something we shouldn't do.
 //R.find(R.propEq(2, 'a'))(xs); -> pending to try.
-//R.includes(3, [1, 2, 3]); -> DONE
 const getCurrentWord = () =>
-  Store.getWords().find((word) =>
-    R.includes(word.hasCorrectAnswer, [false, null])
-  );
+  Store.getWords().find((word) => R.includes(word.isCorrect, [false, null]));
 
-//TODO: delete index and make it work. -> DONE
-const getHasCorrectAnswerBoolean = () => {
-  const { hasCorrectAnswer } = Store.getWords()
-    .slice() // returns a shallow copy
-    .reverse()
-    .find((word) => [true, false].includes(word.hasCorrectAnswer));
-  return hasCorrectAnswer;
+const getIsCorrect = () => {
+  const { isCorrect } = Store.getWords().find((word) =>
+    [true, false].includes(word.isCorrect)
+  );
+  return isCorrect;
+  console.log(e); //TODO: what to do when not longer works. -> SOLVED.
 };
 
-const getNoOfWords = () => Store.getWords().length;
+const sumWords = () => Store.getWords().length;
 
-const getNoOfCorrectAnswers = () =>
-  Store.getWords().filter(R.prop("hasCorrectAnswer")).length;
+const sumCorrectAnswers = () =>
+  Store.getWords().filter(R.prop("isCorrect")).length;
 
 const sumAttempts = () =>
   Store.getWords().map(R.prop("noOfAttempts")).reduce(R.add, 0);
@@ -52,12 +42,11 @@ const Utils = {
   qs,
   shuffleArray,
   isAnagram,
-  getHasCorrectAnswerBoolean,
-  getNoOfCorrectAnswers,
+  getIsCorrect,
+  sumCorrectAnswers,
   sumAttempts,
   sumPoints,
-  getHasCorrectAnswer,
-  getNoOfWords,
+  sumWords,
   getCurrentWord,
 };
 
