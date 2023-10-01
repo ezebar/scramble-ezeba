@@ -9,14 +9,17 @@ body {
 }
 
 .container {
-  max-width: 500px;
+  max-width: 580px;
   margin: 50px auto;
   padding: 50px;
   display: grid;
-  place-items: left;
   gap: 10px;
 }
 
 .btn-hidden {
   visibility: hidden;
+}
+
+.words {
+  letter-spacing: 5px;
 }
