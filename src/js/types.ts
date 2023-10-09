@@ -9,6 +9,24 @@ export type Word = {
 
 export type Words = Word[];
 
-export type State = {
+export type Level = {
+  id: number;
   words: Words;
 };
+
+export type Levels = Level[];
+
+export type User = {
+  id: number;
+  name: string;
+};
+
+export type Users = User[];
+
+export type State = {
+  levels: Levels;
+  users: Users;
+};
+
+//TODO: add users. Create type for users, create INIT_USERS that will go into INIT_STATE
+// Create users module with at least one function getUserById

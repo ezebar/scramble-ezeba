@@ -1,113 +1,34 @@
 import { createStore } from "zustand/vanilla";
 import * as R from "ramda";
 import { State } from "./types";
+import DataLevels from "./data/levels";
+import DataUsers from "./data/users";
 
-let INIT_STATE = {};
-
-const level1 = {
-  words: [
-    {
-      id: 1,
-      word: "done",
-      isCorrect: null,
-      noOfAttempts: 0,
-      hint: "Completed or finished; no more actions needed.",
-      points: 0,
-    },
-    {
-      id: 2,
-      word: "should",
-      isCorrect: null,
-      noOfAttempts: 0,
-      hint: "Used to express obligation, expectation, or advice.",
-      points: 0,
-    },
-    {
-      id: 3,
-      word: "there",
-      isCorrect: null,
-      noOfAttempts: 0,
-      hint: "In that place or location; opposite of 'here.'",
-      points: 0,
-    },
-    {
-      id: 4,
-      word: "ready",
-      isCorrect: null,
-      noOfAttempts: 0,
-      hint: "Prepared or willing to do something; fully prepared.",
-      points: 0,
-    },
-    {
-      id: 5,
-      word: "long",
-      isCorrect: null,
-      noOfAttempts: 0,
-      hint: "Having a great length or duration; not short.",
-      points: 0,
-    },
-  ],
-};
-
-const level2 = {
-  words: [
-    {
-      id: 1,
-      word: "happy",
-      isCorrect: null,
-      noOfAttempts: 0,
-      hint: "Feeling joy or pleasure.",
-      points: 0,
-    },
-    {
-      id: 2,
-      word: "know",
-      isCorrect: null,
-      noOfAttempts: 0,
-      hint: "To have information or awareness about something.",
-      points: 0,
-    },
-    {
-      id: 3,
-      word: "dream",
-      isCorrect: null,
-      noOfAttempts: 0,
-      hint: "A series of thoughts, images, or sensations occurring in a person's mind during sleep.",
-      points: 0,
-    },
-    {
-      id: 4,
-      word: "test",
-      isCorrect: null,
-      noOfAttempts: 0,
-      hint: "A procedure intended to establish the quality or performance of something.",
-      points: 0,
-    },
-    {
-      id: 5,
-      word: "find",
-      isCorrect: null,
-      noOfAttempts: 0,
-      hint: "To discover or locate something by searching or exploring.",
-      points: 0,
-    },
-  ],
+let INIT_STATE = {
+  levels: DataLevels.levels,
+  users: DataUsers.users,
 };
 
 //TODO: add level 2 dinamically pending
-const loadLevel = (levelData) => {
-  INIT_STATE = levelData;
-  console.log(levelData);
-};
-loadLevel(level1);
+const getLevels = () => getState().levels;
+const getUsers = () => getState().users;
 
-const getWords = () => getState().words;
+//state.levels.find(id => id === 1)
+const getWords = (levelId = 1) =>
+  getLevels().find(({ id }) => id === levelId)?.words || []; // map, find and other methods can loop over empty array
+
+//TODO: check how word getUsers
+const getUserNames = (userId = 1) => {
+  return getUsers().find((user) => user.id === userId);
+};
+
+// console.log(DataUsers.users[0].name);
 
 const setAnswerToCorrect = (id: number) =>
   setState(
     (state) => ({
       ...state,
-      words: state.words.map((word) =>
+      words: getWords().map((word) =>
         word.id === id
           ? { ...word, isCorrect: true, points: R.add(word.points, 10) }
           : word
@@ -120,7 +41,7 @@ const setAnswerToWrong = (id: number) => {
   setState(
     (state) => ({
       ...state,
-      words: state.words.map((word) =>
+      words: getWords().map((word) =>
         word.id === id
           ? {
               ...word,
@@ -148,9 +69,8 @@ const Store = {
   setAnswerToWrong,
   INIT_STATE,
   reset,
-  loadLevel,
-  level1,
-  level2,
+  getLevels,
+  getUsers,
 };
 
 export default Store;
